@@ -1,0 +1,316 @@
+openapi: 3.1.0
+info:
+  title: Insurance API
+  description: API for managing insurance policies, user details, documents, financial data, and FAQs.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+paths:
+  /api/policy:
+    get:
+      summary: Get all policies
+      description: Fetch all policy details.
+      tags: 
+        - policy
+      responses:
+        '200':
+          description: A list of all policies.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+
+  /api/policy/{policyId}:
+    get:
+      summary: Get policy details
+      description: Fetch policy details by ID.
+      tags:
+        - policy
+      parameters:
+        - name: policyId
+          in: path
+          required: true
+          description: The unique identifier for the policy.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Policy details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+
+  /api/user/{userId}/personal-info:
+    get:
+      summary: Get personal information
+      description: Fetch personal information of the primary and additional drivers.
+      tags:
+        - personal-info
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The unique identifier of the user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User personal information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalInfo'
+
+  /api/user/{userId}/documents:
+    get:
+      summary: Get user documents
+      description: Fetch archived documents associated with the user.
+      tags:
+        - documents
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The unique identifier of the user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+
+  /api/user/{userId}/invoices:
+    get:
+      summary: Get financial details
+      description: Retrieve a list of paid invoices and upcoming invoices.
+      tags:
+        - invoices
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The unique identifier of the user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Financial details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialDetails'
+
+  /api/faq:
+    get:
+      summary: Get FAQ
+      description: Retrieve list of frequently asked questions.
+      tags:
+        - faq
+      responses:
+        '200':
+          description: List of FAQs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FAQType'
+
+  /api/faq/search:
+    get:
+      summary: Search FAQs
+      description: Search FAQs by query.
+      tags:
+        - search
+      parameters:
+        - name: query
+          in: query
+          required: false
+          description: Search query term for FAQs.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matched FAQs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FAQType'
+
+components:
+  schemas:
+    Policy:
+      type: object
+      properties:
+        policyId:
+          type: string
+        licensePlate:
+          type: string
+        policyNumber:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentType'
+        vehicleDetails:
+          type: object
+          properties:
+            brand:
+              type: string
+            licensePlate:
+              type: string
+            reportingCode:
+              type: string
+            type:
+              type: string
+            constructionYear:
+              type: integer
+            kmPerYear:
+              type: integer
+            speed:
+              type: string
+        insuranceDetails:
+          type: object
+          properties:
+            effectiveDate:
+              type: string
+              format: date
+            mutationDate:
+              type: string
+              format: date
+            term:
+              type: string
+              enum: ['maand', 'jaar']
+            expiryDate:
+              type: string
+              format: date
+            contractTerm:
+              type: integer
+        archivedDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentType'
+        faq:
+          type: array
+          items:
+            $ref: '#/components/schemas/FAQType'
+
+    PersonalInfo:
+      type: object
+      properties:
+        policyHolder:
+          $ref: '#/components/schemas/Person'
+        additionalDriver:
+          $ref: '#/components/schemas/Person'
+
+    Person:
+      type: object
+      properties:
+        personalDetails:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            birthdate:
+              type: string
+              format: date
+            phone:
+              type: string
+            email:
+              type: string
+        addressDetails:
+          type: object
+          properties:
+            address:
+              type: string
+            houseNumber:
+              type: integer
+            postcode:
+              type: string
+            residence:
+              type: string
+        paymentDetails:
+          type: object
+          properties:
+            account_number:
+              type: string
+
+    Documents:
+      type: object
+      properties:
+        mainDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentType'
+        archivedDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentType'
+        Faq:
+          type: array
+          items:
+            $ref: '#/components/schemas/FAQType'
+
+    FinancialDetails:
+      type: object
+      properties:
+        paid:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceType'
+        upcoming:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceType'
+
+    DocumentType:
+      type: object
+      properties:
+        docType:
+          type: string
+        downloadUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    FAQType:
+      type: object
+      properties:
+        type:
+          type: string
+        content:
+          type: string
+
+    InvoiceType:
+      type: object
+      properties:
+        invoiceId:
+          type: string
+        amount:
+          type: number
+          format: float
+        status:
+          type: string
+          enum: ['PAID', 'UPCOMING']
+        datePaid:
+          type: ['string', 'null']
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
