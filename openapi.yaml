@@ -11,11 +11,11 @@ paths:
   /policies:
     get:
       summary: Get all policies
-      tags: 
+      tags:
         - policies
       responses:
-        '200':
-          $ref: '#/components/responses/PolicyList'
+        "200":
+          $ref: "#/components/responses/PolicyList"
 
   /policies/{policyId}:
     get:
@@ -23,10 +23,10 @@ paths:
       tags:
         - policies
       parameters:
-        - $ref: '#/components/parameters/PolicyId'
+        - $ref: "#/components/parameters/PolicyId"
       responses:
-        '200':
-          $ref: '#/components/responses/PolicyDetails'
+        "200":
+          $ref: "#/components/responses/PolicyDetails"
 
   /users:
     get:
@@ -34,8 +34,8 @@ paths:
       tags:
         - users
       responses:
-        '200':
-          $ref: '#/components/responses/UserList'
+        "200":
+          $ref: "#/components/responses/UserList"
 
   /users/{userId}:
     get:
@@ -43,10 +43,10 @@ paths:
       tags:
         - users
       parameters:
-        - $ref: '#/components/parameters/UserId'
+        - $ref: "#/components/parameters/UserId"
       responses:
-        '200':
-          $ref: '#/components/responses/UserDetails'
+        "200":
+          $ref: "#/components/responses/UserDetails"
 
   /users/{userId}/documents:
     get:
@@ -54,10 +54,10 @@ paths:
       tags:
         - documents
       parameters:
-        - $ref: '#/components/parameters/UserId'
+        - $ref: "#/components/parameters/UserId"
       responses:
-        '200':
-          $ref: '#/components/responses/Documents'
+        "200":
+          $ref: "#/components/responses/Documents"
 
   /users/{userId}/documents/{documentId}:
     get:
@@ -65,11 +65,11 @@ paths:
       tags:
         - documents
       parameters:
-        - $ref: '#/components/parameters/UserId'
-        - $ref: '#/components/parameters/DocumentId'
+        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/DocumentId"
       responses:
-        '200':
-          $ref: '#/components/responses/DocumentDetails'
+        "200":
+          $ref: "#/components/responses/DocumentDetails"
 
   /users/{userId}/invoices:
     get:
@@ -77,10 +77,10 @@ paths:
       tags:
         - invoices
       parameters:
-        - $ref: '#/components/parameters/UserId'
+        - $ref: "#/components/parameters/UserId"
       responses:
-        '200':
-          $ref: '#/components/responses/FinancialDetails'
+        "200":
+          $ref: "#/components/responses/FinancialDetails"
 
   /users/{userId}/invoices/{invoiceId}:
     get:
@@ -88,11 +88,11 @@ paths:
       tags:
         - invoices
       parameters:
-        - $ref: '#/components/parameters/UserId'
-        - $ref: '#/components/parameters/InvoiceId'
+        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/InvoiceId"
       responses:
-        '200':
-          $ref: '#/components/responses/InvoiceDetails'
+        "200":
+          $ref: "#/components/responses/InvoiceDetails"
 
   /faqs:
     get:
@@ -100,10 +100,10 @@ paths:
       tags:
         - faqs
       parameters:
-        - $ref: '#/components/parameters/FaqQuery'
+        - $ref: "#/components/parameters/FaqQuery"
       responses:
-        '200':
-          $ref: '#/components/responses/FaqList'
+        "200":
+          $ref: "#/components/responses/FaqList"
 
 components:
   parameters:
@@ -151,14 +151,14 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Policy'
+              $ref: "#/components/schemas/Policy"
 
     PolicyDetails:
       description: Details of a single policy.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Policy'
+            $ref: "#/components/schemas/Policy"
 
     UserList:
       description: A list of all users.
@@ -167,14 +167,14 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/PersonalInfo'
+              $ref: "#/components/schemas/PersonalInfo"
 
     UserDetails:
       description: Details of a single user.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PersonalInfo'
+            $ref: "#/components/schemas/PersonalInfo"
 
     Documents:
       description: A list of documents associated with a user.
@@ -183,28 +183,28 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/DocumentType'
+              $ref: "#/components/schemas/DocumentType"
 
     DocumentDetails:
       description: Details of a single document.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DocumentType'
+            $ref: "#/components/schemas/DocumentType"
 
     FinancialDetails:
       description: A list of financial details (invoices) associated with a user.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/FinancialDetails'
+            $ref: "#/components/schemas/FinancialDetails"
 
     InvoiceDetails:
       description: Details of a single invoice.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InvoiceType'
+            $ref: "#/components/schemas/InvoiceType"
 
     FaqList:
       description: A list of FAQs.
@@ -213,7 +213,7 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/FAQType'
+              $ref: "#/components/schemas/FAQType"
 
   schemas:
     Policy:
@@ -225,22 +225,109 @@ components:
           type: string
         policyNumber:
           type: string
+        documents:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentType"
+        vehicleDetails:
+          $ref: "#/components/schemas/VehicleDetails"
+        insuranceDetails:
+          $ref: "#/components/schemas/InsuranceDetails"
+
+    VehicleDetails:
+    type: object
+    properties:
+      brand:
+        type: string
+      licensePlate:
+        type: string
+      reportingCode:
+        type: string
+      type:
+        type: string
+      constructionYear:
+        type: integer
+      kmPerYear:
+        type: integer
+      speed:
+        type: string
+
+    InsuranceDetails:
+      type: object
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+        mutationDate:
+          type: string
+          format: date
+        term:
+          type: string
+          enum: ["maand", "jaar"]
+        expiryDate:
+          type: string
+          format: date
+        contractTerm:
+          type: integer
 
     PersonalInfo:
       type: object
       properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
+        policyHolder:
+          $ref: "#/components/schemas/Person"
+        additionalDriver:
+          $ref: "#/components/schemas/Person"
+
+    Person:
+      type: object
+      properties:
+        personalDetails:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            birthdate:
+              type: string
+              format: date
+            phone:
+              type: string
+            email:
+              type: string
+        addressDetails:
+          type: object
+          properties:
+            address:
+              type: string
+            houseNumber:
+              type: integer
+            postcode:
+              type: string
+            residence:
+              type: string
+        paymentDetails:
+          type: object
+          properties:
+            account_number:
+              type: string
+
 
     DocumentType:
       type: object
       properties:
+        documentId:
+          type: string
         docType:
           type: string
         downloadUrl:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
 
     FinancialDetails:
       type: object
@@ -248,11 +335,11 @@ components:
         paid:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceType'
+            $ref: "#/components/schemas/InvoiceType"
         upcoming:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceType'
+            $ref: "#/components/schemas/InvoiceType"
 
     InvoiceType:
       type: object
@@ -261,6 +348,16 @@ components:
           type: string
         amount:
           type: number
+          format: float
+        status:
+          type: string
+          enum: ['PAID', 'UPCOMING']
+        datePaid:
+          type: ['string', 'null']
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
 
     FAQType:
       type: object
