@@ -1,0 +1,49 @@
+{
+    "Envelope": {
+      "Header": {},
+      "Body": {
+        "ArchiefLezenViaInternPolisnummerResponse": {
+          "ArchiefLezenViaInternPolisnummerResult": {
+            "recordtotaal-totalrecords": null,
+            "archief-archive": [
+              {
+                "pc-pc": "I",
+                "aanmaakdatum-createdate": null,
+                "aanmaakdatumtijd-createtime": null,
+                "bestandextensie-fileextension": null,
+                "bestandnaam-filename": null,
+                "externkenmerk-externalattribute": null,
+                "factuurnummer-invoicenumber": null,
+                "idkoppeling-idlink": null,
+                "internpolisnummer-internalpolicynumber": null,
+                "internschadenummer-internalclaimnumber": null,
+                "ivblayoutnummer-ivblayoutnumber": null,
+                "kenmerk-feature": null,
+                "layoutcode-layoutcode": null,
+                "maatschappijnummer-companynumber": null,
+                "medewerkernummer-employeenumber": null,
+                "objectidtabeldocumentsoort-objectidtabledocumenttype": null,
+                "offertenummer-offernumber": null,
+                "omschrijving-description": null,
+                "polisnummer-policynumber": null,
+                "relatienummer-relationnumber": null,
+                "schadenummerkantoor-claimnumberoffice": null,
+                "soortcorrespondentie-correspondencetype": null,
+                "soortkoppeling-linktype": null,
+                "statusexternarchief-externalarchivestatus": null,
+                "tonendetailgegevens-showdetaileddetails": null,
+                "tussenpersoonnummer-brokernumber": null,
+                "uniekvolgnummer-uniquesequentialnumber": null,
+                "variantnummer-variantnumber": null,
+                "volgnrarchief-archivesequentialnumber": null,
+                "volgnrarchiefhoofd-archiveheadsequentialnumber": null,
+                "volgnrarchiefscan-archivescannumber": null,
+                "wachtnummer-waitnumber": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+  

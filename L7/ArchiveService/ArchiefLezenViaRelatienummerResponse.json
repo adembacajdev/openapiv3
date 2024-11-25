@@ -1,0 +1,49 @@
+{
+    "Envelope": {
+      "Header": {},
+      "Body": {
+        "ArchiefLezenViaRelatienummerResponse": {
+          "ArchiefLezenViaRelatienummerResult": {
+            "recordtotaal": null,
+            "archief": [
+              {
+                "pc": "I",
+                "aanmaakdatum": null,
+                "aanmaakdatumtijd": null,
+                "bestandextensie": null,
+                "bestandnaam": null,
+                "externkenmerk": null,
+                "factuurnummer": null,
+                "idkoppeling": null,
+                "internpolisnummer": null,
+                "internschadenummer": null,
+                "ivblayoutnummer": null,
+                "kenmerk": null,
+                "layoutcode": null,
+                "maatschappijnummer": null,
+                "medewerkernummer": null,
+                "objectidtabeldocumentsoort": null,
+                "offertenummer": null,
+                "omschrijving": null,
+                "polisnummer": null,
+                "relatienummer": null,
+                "schadenummerkantoor": null,
+                "soortcorrespondentie": null,
+                "soortkoppeling": null,
+                "statusexternarchief": null,
+                "tonendetailgegevens": null,
+                "tussenpersoonnummer": null,
+                "uniekvolgnummer": null,
+                "variantnummer": null,
+                "volgnrarchief": null,
+                "volgnrarchiefhoofd": null,
+                "volgnrarchiefscan": null,
+                "wachtnummer": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+  
