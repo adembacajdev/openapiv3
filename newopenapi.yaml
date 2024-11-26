@@ -1,0 +1,253 @@
+openapi: 3.1.0
+info:
+  title: Insurance API
+  description: API for managing insurance policies, user details, documents and financial data.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+paths:
+  /policies:
+    get:
+      summary: Get all policies
+      tags:
+        - policies
+      responses:
+        "200":
+          $ref: "#/components/responses/PolicyList"
+
+  /policies/{policyId}:
+    get:
+      summary: Get a single policy
+      tags:
+        - policies
+      parameters:
+        - $ref: "#/components/parameters/PolicyId"
+      responses:
+        "200":
+          $ref: "#/components/responses/PolicyDetails"
+
+  /users:
+    get:
+      summary: Get all users
+      tags:
+        - users
+      responses:
+        "200":
+          $ref: "#/components/responses/UserList"
+
+  /users/{userId}:
+    get:
+      summary: Get user personal information
+      tags:
+        - users
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      responses:
+        "200":
+          $ref: "#/components/responses/UserDetails"
+
+  /users/{userId}/documents:
+    get:
+      summary: Get all documents for a user
+      tags:
+        - documents
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      responses:
+        "200":
+          $ref: "#/components/responses/Documents"
+
+  /users/{userId}/documents/{documentId}:
+    get:
+      summary: Get a single document for a user
+      tags:
+        - documents
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/DocumentId"
+      responses:
+        "200":
+          $ref: "#/components/responses/DocumentDetails"
+
+  /users/{userId}/invoices:
+    get:
+      summary: Get all invoices for a user
+      tags:
+        - invoices
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      responses:
+        "200":
+          $ref: "#/components/responses/FinancialDetails"
+
+  /users/{userId}/invoices/{invoiceId}:
+    get:
+      summary: Get a single invoice for a user
+      tags:
+        - invoices
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/InvoiceId"
+      responses:
+        "200":
+          $ref: "#/components/responses/InvoiceDetails"
+
+components:
+  parameters:
+    UserId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: string
+    PolicyId:
+      name: policyId
+      in: path
+      required: true
+      description: The unique identifier of the policy.
+      schema:
+        type: string
+    DocumentId:
+      name: documentId
+      in: path
+      required: true
+      description: The unique identifier of the document.
+      schema:
+        type: string
+    InvoiceId:
+      name: invoiceId
+      in: path
+      required: true
+      description: The unique identifier of the invoice.
+      schema:
+        type: string
+
+  responses:
+    PolicyList:
+      description: A list of all policies.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Policy"
+
+    PolicyDetails:
+      description: Details of a single policy.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Policy"
+
+    UserList:
+      description: A list of all users.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/PersonalInfo"
+
+    UserDetails:
+      description: Details of a single user.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PersonalInfo"
+
+    Documents:
+      description: A list of documents associated with a user.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/DocumentType"
+
+    DocumentDetails:
+      description: Details of a single document.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DocumentType"
+
+    FinancialDetails:
+      description: A list of financial details (invoices) associated with a user.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/FinancialDetails"
+
+    InvoiceDetails:
+      description: Details of a single invoice.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvoiceType"
+
+  schemas:
+    Policy:
+      type: object
+      properties: 
+        policyNumber:
+          type: string
+
+    PersonalInfo:
+      type: object
+      properties:
+        policyHolder:
+          $ref: "#/components/schemas/Person"
+
+    Person:
+      type: object
+      properties:
+        personalDetails:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            birthdate:
+              type: string
+              format: date
+            phone:
+              type: string
+            email:
+              type: string
+        addressDetails:
+          type: object
+          properties:
+            address:
+              type: string
+            houseNumber:
+              type: integer
+            postcode:
+              type: string
+            residence:
+              type: string
+
+    DocumentType:
+      type: object
+      properties:
+        docType:
+          type: string
+        downloadUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    FinancialDetails:
+        type: array
+        items:
+          $ref: "#/components/schemas/InvoiceType"
+
+    InvoiceType:
+      type: object
+      properties:
+        invoiceNumber:
+          type: number
